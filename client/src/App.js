@@ -12,18 +12,24 @@ function App() {
       .get(`${BASEURL}${PROJECTS}`)
       .then(projects => {
         console.log(projects);
+        setAllProjects(projects.data);
       })
       .catch(error => {
         console.log(error);
       });
-  });
+  }, []);
 
   return (
     <div className='App'>
       <header className='App-header'>
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
+        {allProjects &&
+          allProjects.map(project => (
+            <div key={project.id}>
+              <h3>{project.name}</h3>
+              <h4>{project.description}</h4>
+              <h5>{`Completed: ${project.completed}`}</h5>
+            </div>
+          ))}
       </header>
     </div>
   );

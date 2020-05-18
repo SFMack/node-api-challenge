@@ -65,6 +65,16 @@ router.delete("/:id", (req, res) => {
     });
 });
 
+// READ
 // get project actions
+router.get("/actions/:id", (req, res) => {
+  const { id } = req.params;
+  db.getProjectActions(id)
+    .then(actions => res.status(200).json(actions))
+    .catch(error => {
+      console.log(error);
+      res.status(500).json({ errorMessage: "Unable to retrive those actions" });
+    });
+});
 
 module.exports = router;
